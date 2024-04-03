@@ -27,6 +27,10 @@ export default class course extends Model {
           type: DataTypes.STRING(255),
           allowNull: true,
         },
+        Image: {
+          type: DataTypes.STRING(255),
+          allowNull: true,
+        },
       },
       {
         sequelize,
