@@ -41,6 +41,10 @@ export default class sign extends Model {
         model: 'course',
         key: 'ID'
       }
+    },
+    hasPaid: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
     }
   }, {
     sequelize,

@@ -9,12 +9,4 @@ app.use(cors());
 // chuyển tất cả sang định dạng json
 app.use(express.json());
 
-const connect = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  port: "3307",
-  database: "gym",
-});
-
 app.use(rootRoute);

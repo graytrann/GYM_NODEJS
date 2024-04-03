@@ -23,6 +23,10 @@ export default class course extends Model {
           type: DataTypes.STRING(255),
           allowNull: true,
         },
+        Goal: {
+          type: DataTypes.STRING(255),
+          allowNull: true,
+        },
       },
       {
         sequelize,
