@@ -1,4 +1,5 @@
 import sequelize from "../models/connect.js";
+import { decodeToken } from "../config/jwt.js";
 import initModels from "../models/init-models.js";
 import { responseData } from "../config/responseData.js";
 
@@ -97,25 +98,27 @@ const getAscCourse = async (req, res) => {
 };
 
 const purchaseCourse = async (req, res) => {
-  const { DateBegin, Duration, DisCode, Total, UserId, CourseID, hasPaid } =
-    req.body;
+  const { DateBegin, Duration, DisCode, Total, CourseID, hasPaid } = req.body;
 
-  try {
-    // Tạo một hóa đơn mới trong cơ sở dữ liệu
-    const newPurchase = await model.sign.create({
-      DateBegin,
-      Duration,
-      DisCode,
-      Total,
-      UserId,
-      CourseID,
-      hasPaid,
-    });
+  const { token } = req.headers;
+  console.log(token);
+  const cleanedToken = token.replace(/^"|"$/g, ""); // Loại bỏ kí tự '"' từ đầu và cuối chuỗi
 
-    responseData(res, "Xử lý thành công", newPurchase, 200);
-  } catch (error) {
-    responseData(res, "Lỗi..", "", 500);
-  }
+  const userId = decodeToken(cleanedToken);
+
+  console.log(userId);
+
+  const newPurchase = await model.sign.create({
+    DateBegin,
+    Duration,
+    DisCode,
+    Total,
+    UserId: userId.data.user_id,
+    CourseID,
+    hasPaid,
+  });
+
+  responseData(res, "Xử lý thành công", newPurchase, 200);
 };
 
 export {

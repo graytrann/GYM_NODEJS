@@ -5,7 +5,7 @@ import {
   getCourseById,
   getDesCourse,
   suggestCourse,
-  purchaseCourse
+  purchaseCourse,
 } from "../controllers/courseController.js";
 
 const courseRoot = express.Router();

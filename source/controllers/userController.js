@@ -19,8 +19,8 @@ const register = async (req, res) => {
 
     if (existingUser) {
       return res
-        .status(400)
-        .send({ message: "Số điện thoại đã tồn tại trong hệ thống" });
+        .status(401)
+        .json({ error: { message: "Số điện thoại đã tồn tại" } });
     }
 
     // Nếu số điện thoại chưa tồn tại, tạo người dùng mới
@@ -46,13 +46,17 @@ const login = async (req, res) => {
     const user = await model.user.findOne({ where: { Phone: phone } });
 
     if (!user) {
-      return res.status(401).json({ message: "Số điện thoại không tồn tại" });
+      return res
+        .status(401)
+        .json({ error: { message: "Số điện thoại không tồn tại" } });
     }
 
     // So sánh mật khẩu đã hash với mật khẩu được cung cấp
     const isPasswordValid = await bcrypt.compare(password, user.Password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Mật khẩu không chính xác" });
+      return res
+        .status(401)
+        .json({ error: { message: "Mật khẩu không chính xác" } });
     }
     let key = new Date().getTime();
     // Tạo token JWT
