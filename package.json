@@ -1,6 +1,7 @@
 {
   "name": "GYM_BACKEND",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "start": "nodemon source/server.js"
   },
