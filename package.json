@@ -1,6 +1,5 @@
 {
   "name": "GYM_BACKEND",
-  "packageManager": "yarn@3.3.0",
   "type": "module",
   "scripts": {
     "start": "nodemon source/server.js"
